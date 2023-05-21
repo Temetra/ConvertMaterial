@@ -1,0 +1,42 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "clean",
+			"type": "shell",
+			"command": "Remove-Item -Recurse Bin\\*",
+			"presentation": { "reveal": "silent" },
+			"problemMatcher": []
+		},
+		{
+			"label": "build",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"build",
+				"${workspaceFolder}/ConvertMaterial.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary"
+			],
+			"dependsOn": "clean",
+			"presentation": { "reveal": "silent" },
+			"problemMatcher": "$msCompile"
+		},
+		{
+			"label": "publish",
+			"command": "dotnet",
+			"type": "process",
+			"args": [
+				"publish",
+				"${workspaceFolder}/ConvertMaterial.csproj",
+				"/property:GenerateFullPaths=true",
+				"/consoleloggerparameters:NoSummary",
+				"--configuration",
+				"Release"
+			],
+			"dependsOn": "clean",
+			"presentation": { "reveal": "silent" },
+			"problemMatcher": "$msCompile"
+		}
+	]
+}
