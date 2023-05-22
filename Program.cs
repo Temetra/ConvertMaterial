@@ -1,16 +1,17 @@
 ﻿using System.Reflection;
 using ConvertMaterial;
+using ConvertMaterial.Json;
 
-IConverter converter = Converter.GetConverter(
-	args.Length > 0 ? args[0] : null, 
-	args.Length > 1 ? args[1] : null
-);
+var input = args.Length > 0 ? args[0] : null;
+var output = args.Length > 1 ? args[1] : null;
 
-if (converter != null)
+if (!string.IsNullOrEmpty(input))
 {
 	try
 	{
-		converter.Convert();
+		var isJson = JsonHelper.FileIsJson(input);
+		if (isJson) Transform.FromJsonToBinary(input, output);
+		else Transform.FromBinaryToJson(input, output);
 	}
 	catch (System.IO.FileNotFoundException ex)
 	{
